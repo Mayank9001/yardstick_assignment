@@ -21,14 +21,14 @@ const categories = [
   "Bills",
   "Other",
 ];
-const COLORS = [
-  "#8884d8",
-  "#82ca9d",
-  "#ffc658",
-  "#ff8042",
-  "#00c49f",
-  "#ffbb28",
-];
+// const COLORS = [
+//   "#8884d8",
+//   "#82ca9d",
+//   "#ffc658",
+//   "#ff8042",
+//   "#00c49f",
+//   "#ffbb28",
+// ];
 
 export default function Dashboard() {
   interface Transaction {
