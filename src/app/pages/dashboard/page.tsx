@@ -93,11 +93,6 @@ export default function Dashboard() {
     }))
     .filter((data) => data.value > 0);
 
-  const chartData = categoryData.map((data, index) => ({
-    name: data.name,
-    value: data.value,
-    color: COLORS[index % COLORS.length],
-  }));
   const budgetData = Object.keys(budgets).map((category) => ({
     category,
     budget: budgets[category],

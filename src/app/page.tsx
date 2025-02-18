@@ -68,6 +68,12 @@ export default function Home() {
       );
       setTransactions(savedTransactions);
     }
+    const savedBudgets = JSON.parse(
+      localStorage.getItem("budgets") || "[]"
+    );
+    if (savedBudgets.length > 0) {
+      setBudgets(savedBudgets);
+    }
   }, []);
 
   useEffect(() => {
@@ -138,19 +144,24 @@ export default function Home() {
     );
 
     categories.forEach((category) => {
-      if (categoryTotals[category] > budgets[category]) {
+      if (
+        categoryTotals[category] > budgets[category] &&
+        budgets[category] > 0
+      ) {
         insights.push({
           message: `⚠ You’ve exceeded your budget for ${category}!`,
           type: "danger",
         });
-      } else if (categoryTotals[category] >= budgets[category] * 0.8) {
+      } else if (
+        categoryTotals[category] >= budgets[category] * 0.8 &&
+        budgets[category] > 0
+      ) {
         insights.push({
           message: `⚠ You have used 80% of your ${category} budget.`,
           type: "warning",
         });
       }
     });
-
     return insights;
   };
   const chartData = Object.keys(monthlyData)
@@ -252,6 +263,7 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
+      <h2 style={{marginBottom:"0px"}}>Transaction List</h2>
       <ul className={styles.transactionList}>
         {transactions.map((t) => (
           <li key={t.id} className={styles.transactionItem}>
@@ -290,23 +302,26 @@ export default function Home() {
           </BarChart>
         </ResponsiveContainer>
       </div>
-
       <div className={styles.insightsSection}>
         <h2 className={styles.chartTitle}>Spending Insights</h2>
-        <ul className="space-y-4">
-          {getSpendingInsights().map((insight, index) => (
-            <li
-              key={index}
-              className={`${styles.insightItem} ${
-                insight.type === "danger"
-                  ? styles.insightDanger
-                  : styles.insightWarning
-              }`}
-            >
-              {insight.message}
-            </li>
-          ))}
-        </ul>
+        {getSpendingInsights().length > 0 ? (
+          <ul className="space-y-4">
+            {getSpendingInsights().map((insight, index) => (
+              <li
+                key={index}
+                className={`${styles.insightItem} ${
+                  insight.type === "danger"
+                    ? styles.insightDanger
+                    : styles.insightWarning
+                }`}
+              >
+                {insight.message}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ fontSize: "15px" }}>No budgets set <span style={{fontSize:"12px", fontStyle:"italic"}}>(to set budgets head to <a href="/pages/dashboard" style={{color:"blue", textDecoration:"underline"}}>Dashboard</a>)</span>.</div>
+        )}
       </div>
     </div>
   );

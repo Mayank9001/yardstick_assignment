@@ -139,7 +139,8 @@
 .transactionList {
   margin-top: 1.5rem; /* mt-6 */
   list-style: none;
-  height: 300px;
+  height: fit-content;
+  max-height: 300px;
   overflow-y: scroll;
   padding: 0;
   gap: 1rem;
