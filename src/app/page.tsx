@@ -175,7 +175,7 @@ export default function Home() {
       amount: monthlyData[month],
     }));
   return (
-    <>
+    <div className={styles.mainContainer}>
       <div className={styles.container}>
         <h1 className={styles.title}>Personal Finance Visualizer</h1>
 
@@ -339,6 +339,6 @@ export default function Home() {
           )}
         </div>
       </div>
-    </> 
+    </div> 
   );
 }
