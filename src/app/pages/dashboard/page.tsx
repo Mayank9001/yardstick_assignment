@@ -43,6 +43,14 @@ export default function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter();
   const [budgets, setBudgets] = useState<{ [key: string]: number }>(() => {
+    if (typeof window === "undefined") return {
+      "Food": 0,
+      "Transport": 0,
+      "Shopping": 0,
+      "Entertainment": 0,
+      "Bills": 0,
+      "Other": 0,
+    };
     const savedBudgets = JSON.parse(localStorage.getItem("budgets") || "{}");
     return {
       Food: savedBudgets.Food || 0,
