@@ -50,13 +50,10 @@ export default function Home() {
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState<number | null>(null);
   const router = useRouter();
-  const [budgets, setBudgets] = useState<{ [key: string]: number }>(() => {
-    const savedBudgets = JSON.parse(localStorage.getItem("budgets") || "{}");
-    return categories.reduce((acc: { [key: string]: number }, category) => {
-      acc[category] = savedBudgets[category] || 0;
-      return acc;
-    }, {});
-  });
+  const budgets =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("budgets") || "{}")
+      : {};
   useEffect(() => {
     const savedTransactions = JSON.parse(
       localStorage.getItem("transactions") || "[]"
@@ -68,12 +65,6 @@ export default function Home() {
       );
       setTransactions(savedTransactions);
     }
-    const savedBudgets = JSON.parse(
-      localStorage.getItem("budgets") || "[]"
-    );
-    if (savedBudgets.length > 0) {
-      setBudgets(savedBudgets);
-    }
   }, []);
 
   useEffect(() => {
@@ -81,9 +72,6 @@ export default function Home() {
       localStorage.setItem("transactions", JSON.stringify(transactions));
     }
   }, [transactions]);
-  useEffect(() => {
-    localStorage.setItem("budgets", JSON.stringify(budgets));
-  }, [budgets]);
   const saveTransaction = () => {
     if (!form.amount || !form.date || !form.description || !form.category) {
       setError("All fields are required");
@@ -153,11 +141,19 @@ export default function Home() {
           type: "danger",
         });
       } else if (
-        categoryTotals[category] >= budgets[category] * 0.8 &&
+        categoryTotals[category] == budgets[category] &&
         budgets[category] > 0
       ) {
         insights.push({
-          message: `⚠ You have used 80% of your ${category} budget.`,
+          message: `⚠ You have used 100% of your ${category} budget.`,
+          type: "danger",
+        });
+      } else if (
+        categoryTotals[category] > budgets[category] * 0.8 &&
+        budgets[category] > 0
+      ) {
+        insights.push({
+          message: `You have used 80% of your ${category} budget!`,
           type: "warning",
         });
       }
@@ -263,7 +259,7 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      <h2 style={{marginBottom:"0px"}}>Transaction List</h2>
+      <h2 style={{ marginBottom: "0px" }}>Transaction List</h2>
       <ul className={styles.transactionList}>
         {transactions.map((t) => (
           <li key={t.id} className={styles.transactionItem}>
@@ -320,7 +316,20 @@ export default function Home() {
             ))}
           </ul>
         ) : (
-          <div style={{ fontSize: "15px" }}>No budgets set <span style={{fontSize:"12px", fontStyle:"italic"}}>(to set budgets head to <a href="/pages/dashboard" style={{color:"blue", textDecoration:"underline"}}>Dashboard</a>)</span>.</div>
+          <div style={{ fontSize: "15px" }}>
+            No budgets set{" "}
+            <span style={{ fontSize: "12px", fontStyle: "italic" }}>
+              (to set budgets head to{" "}
+              <a
+                href="/pages/dashboard"
+                style={{ color: "blue", textDecoration: "underline" }}
+              >
+                Dashboard
+              </a>
+              )
+            </span>
+            .
+          </div>
         )}
       </div>
     </div>
