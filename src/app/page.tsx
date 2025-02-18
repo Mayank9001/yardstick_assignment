@@ -174,164 +174,171 @@ export default function Home() {
       month,
       amount: monthlyData[month],
     }));
-
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Personal Finance Visualizer</h1>
+    <>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Personal Finance Visualizer</h1>
 
-      <div className={styles.buttonContainer}>
-        <Button
-          onClick={() => {
-            setOpen(true);
-            setEditingId(null);
-            setForm({ amount: "", date: "", description: "", category: "" });
-          }}
-          className={`${styles.button} ${styles.buttonAdd}`}
-        >
-          Add Transaction
-        </Button>
-        <Button
-          onClick={() => router.push("/pages/dashboard")}
-          className={`${styles.button} ${styles.buttonDashboard}`}
-        >
-          Go to Dashboard
-        </Button>
-      </div>
+        <div className={styles.buttonContainer}>
+          <Button
+            onClick={() => {
+              setOpen(true);
+              setEditingId(null);
+              setForm({ amount: "", date: "", description: "", category: "" });
+            }}
+            className={`${styles.button} ${styles.buttonAdd}`}
+          >
+            Add Transaction
+          </Button>
+          <Button
+            onClick={() => router.push("/pages/dashboard")}
+            className={`${styles.button} ${styles.buttonDashboard}`}
+          >
+            Go to Dashboard
+          </Button>
+        </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
-          className={styles.dialogContent}
-          onPointerDownOutside={(e) => e.preventDefault()} // Prevent closing on outside click
-        >
-          <DialogTitle className={styles.dialogTitle}>
-            {editingId !== null ? "Edit Transaction" : "Add Transaction"}
-          </DialogTitle>
-          {error && <p className={styles.errorText}>{error}</p>}
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent
+            className={styles.dialogContent}
+            onPointerDownOutside={(e) => e.preventDefault()} // Prevent closing on outside click
+          >
+            <DialogTitle className={styles.dialogTitle}>
+              {editingId !== null ? "Edit Transaction" : "Add Transaction"}
+            </DialogTitle>
+            {error && <p className={styles.errorText}>{error}</p>}
 
-          <div className={styles.dialogBody}>
-            <Input
-              type="number"
-              placeholder="Amount"
-              value={form.amount}
-              onChange={(e) => setForm({ ...form, amount: e.target.value })}
-              className={styles.input}
-            />
-            <Input
-              type="date"
-              value={form.date}
-              onChange={(e) => setForm({ ...form, date: e.target.value })}
-              className={styles.input}
-            />
-            <Input
-              type="text"
-              placeholder="Description"
-              value={form.description}
-              onChange={(e) =>
-                setForm({ ...form, description: e.target.value })
-              }
-              className={styles.input}
-            />
+            <div className={styles.dialogBody}>
+              <Input
+                type="number"
+                placeholder="Amount"
+                value={form.amount}
+                onChange={(e) => setForm({ ...form, amount: e.target.value })}
+                className={styles.input}
+              />
+              <Input
+                type="date"
+                value={form.date}
+                onChange={(e) => setForm({ ...form, date: e.target.value })}
+                className={styles.input}
+              />
+              <Input
+                type="text"
+                placeholder="Description"
+                value={form.description}
+                onChange={(e) =>
+                  setForm({ ...form, description: e.target.value })
+                }
+                className={styles.input}
+              />
 
-            <Select
-              value={form.category}
-              onValueChange={(value) => setForm({ ...form, category: value })}
-            >
-              <SelectTrigger className={styles.selectTrigger}>
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent className={styles.selectContent}>
-                {categories.map((category) => (
-                  <SelectItem
-                    key={category}
-                    value={category}
-                    className={styles.selectItem}
-                  >
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Button onClick={saveTransaction} className={styles.saveButton}>
-              {editingId !== null ? "Update" : "Save"}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <h2 style={{ marginBottom: "0px" }}>Transaction List</h2>
-      <ul className={styles.transactionList}>
-        {transactions.map((t) => (
-          <li key={t.id} className={styles.transactionItem}>
-            <span className={styles.transactionText}>
-              {t.description} - Rs {t.amount} ({t.category})
-            </span>
-            <div className={styles.buttonContainerInline}>
-              <Button
-                onClick={() => editTransaction(t)}
-                className={styles.editButton}
+              <Select
+                value={form.category}
+                onValueChange={(value) => setForm({ ...form, category: value })}
               >
-                Edit
-              </Button>
-              <Button
-                onClick={() => deleteTransaction(t.id)}
-                className={styles.deleteButton}
-              >
-                Delete
+                <SelectTrigger className={styles.selectTrigger}>
+                  <SelectValue placeholder="Select Category" />
+                </SelectTrigger>
+                <SelectContent className={styles.selectContent}>
+                  {categories.map((category) => (
+                    <SelectItem
+                      key={category}
+                      value={category}
+                      className={styles.selectItem}
+                    >
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Button onClick={saveTransaction} className={styles.saveButton}>
+                {editingId !== null ? "Update" : "Save"}
               </Button>
             </div>
-          </li>
-        ))}
-      </ul>
+          </DialogContent>
+        </Dialog>
 
-      <div className={styles.chartSection}>
-        <h2 className={styles.chartTitle}>Monthly Expenses</h2>
-        <ResponsiveContainer width="50%" height={300}>
-          <BarChart data={chartData}>
-            <XAxis dataKey="month" />
-            <YAxis
-              width={80}
-              tickFormatter={(value) => value.toLocaleString()}
-            />
-            <Tooltip />
-            <Bar dataKey="amount" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
+        <h2 style={{ marginBottom: "0px" }}>Transaction List</h2>
+        <ul className={styles.transactionList}>
+          { transactions.length > 0 ? (transactions.map((t) => (
+            <li key={t.id} className={styles.transactionItem}>
+              <span className={styles.transactionText}>
+                {t.description} - Rs {t.amount} ({t.category})
+              </span>
+              <div className={styles.buttonContainerInline}>
+                <Button
+                  onClick={() => editTransaction(t)}
+                  className={styles.editButton}
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => deleteTransaction(t.id)}
+                  className={styles.deleteButton}
+                >
+                  Delete
+                </Button>
+              </div>
+            </li>
+          ))) : (
+            <div style={{fontSize:"15px", fontStyle:"italic", fontWeight:"200", color:"gray"}}>No Transactions made yet...</div>
+          )}
+        </ul>
+
+        <div className={styles.chartSection}>
+          <h2 className={styles.chartTitle}>Monthly Expenses</h2>
+          {chartData.length > 0 ? (
+            <ResponsiveContainer width="50%" height={300}>
+              <BarChart data={chartData}>
+                <XAxis dataKey="month" />
+                <YAxis
+                  width={80}
+                  tickFormatter={(value) => value.toLocaleString()}
+                />
+                <Tooltip />
+                <Bar dataKey="amount" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div style={{fontSize:"15px", fontStyle:"italic", fontWeight:"200", color:"gray"}}>No Monthly Expenses Made... </div>
+          )}
+        </div>
+        <div className={styles.insightsSection}>
+          <h2 className={styles.chartTitle}>Spending Insights</h2>
+          {getSpendingInsights().length > 0 ? (
+            <ul className="space-y-4">
+              {getSpendingInsights().map((insight, index) => (
+                <li
+                  key={index}
+                  className={`${styles.insightItem} ${
+                    insight.type === "danger"
+                      ? styles.insightDanger
+                      : styles.insightWarning
+                  }`}
+                >
+                  {insight.message}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div style={{ fontSize: "15px", fontStyle: "italic", fontWeight: "200", color: "gray" }}>
+              No budgets set{" "}
+              <span style={{ fontSize: "12px", fontStyle: "italic" }}>
+                (to set budgets head to{" "}
+                <a
+                  href="/pages/dashboard"
+                  style={{ color: "blue", textDecoration: "underline" }}
+                >
+                  Dashboard
+                </a>
+                )
+              </span>
+              .
+            </div>
+          )}
+        </div>
       </div>
-      <div className={styles.insightsSection}>
-        <h2 className={styles.chartTitle}>Spending Insights</h2>
-        {getSpendingInsights().length > 0 ? (
-          <ul className="space-y-4">
-            {getSpendingInsights().map((insight, index) => (
-              <li
-                key={index}
-                className={`${styles.insightItem} ${
-                  insight.type === "danger"
-                    ? styles.insightDanger
-                    : styles.insightWarning
-                }`}
-              >
-                {insight.message}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: "15px" }}>
-            No budgets set{" "}
-            <span style={{ fontSize: "12px", fontStyle: "italic" }}>
-              (to set budgets head to{" "}
-              <a
-                href="/pages/dashboard"
-                style={{ color: "blue", textDecoration: "underline" }}
-              >
-                Dashboard
-              </a>
-              )
-            </span>
-            .
-          </div>
-        )}
-      </div>
-    </div>
+    </> 
   );
 }

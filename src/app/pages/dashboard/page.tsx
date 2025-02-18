@@ -118,7 +118,7 @@ export default function Dashboard() {
       </div>
 
       <div className={styles.card}>
-        <h2 className={styles.subtitle}>Total Expenses: Rs {totalExpenses}</h2>
+        <h2 className={styles.subtitle}>Total Expenses: <span style={{fontSize:"15px", fontStyle:"italic", color:"gray"}}>Rs {totalExpenses}</span></h2>
       </div>
 
       <h2 className={styles.subtitle}>Set Category Budget</h2>
