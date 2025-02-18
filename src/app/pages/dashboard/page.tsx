@@ -83,15 +83,15 @@ export default function Dashboard() {
     {}
   );
 
-  const categoryData = categories
-    .map((category, index) => ({
-      name: category,
-      value: transactions
-        .filter((t) => t.category === category)
-        .reduce((acc, t) => acc + Number(t.amount), 0),
-      color: COLORS[index % COLORS.length],
-    }))
-    .filter((data) => data.value > 0);
+  // const categoryData = categories
+  //   .map((category, index) => ({
+  //     name: category,
+  //     value: transactions
+  //       .filter((t) => t.category === category)
+  //       .reduce((acc, t) => acc + Number(t.amount), 0),
+  //     color: COLORS[index % COLORS.length],
+  //   }))
+  //   .filter((data) => data.value > 0);
 
   const budgetData = Object.keys(budgets).map((category) => ({
     category,
