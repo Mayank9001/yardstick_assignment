@@ -1,0 +1,231 @@
+.container {
+  padding: 1.5rem;
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #2d3748;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.buttonAdd {
+  background-color: #2563eb; /* bg-blue-600 */
+  color: white;
+}
+
+.buttonAdd:hover {
+  background-color: #1d4ed8; /* bg-blue-700 */
+}
+
+.buttonDashboard {
+  background-color: #4b5563; /* bg-gray-600 */
+  color: white;
+}
+
+.buttonDashboard:hover {
+  background-color: #374151; /* bg-gray-700 */
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 24rem;
+}
+
+.dialogTitle {
+  font-size: 1.25rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  margin-bottom: 1rem; /* mb-4 */
+  color: #2d3748; /* text-gray-800 */
+}
+
+.errorText {
+  color: #f56565; /* text-red-500 */
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.input {
+  width: 100%; /* w-full */
+  padding: 0.5rem; /* p-2 */
+  border: 1px solid #e2e8f0; /* border-gray-300 */
+  border-radius: 0.5rem; /* rounded-lg */
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.input:focus {
+  border-color: #3182ce; /* focus:ring-2 focus:ring-blue-600 */
+}
+
+.selectTrigger {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(190, 190, 190);
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.selectTrigger:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+.selectContent {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selectItem {
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.selectItem:hover {
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+.saveButton {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  background-color: #38a169;
+  color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.saveButton:hover {
+  background-color: #2f855a; /* bg-green-700 */
+}
+
+.transactionList {
+  margin-top: 1.5rem; /* mt-6 */
+  list-style: none;
+  height: 300px;
+  overflow-y: scroll;
+  padding: 0;
+  gap: 1rem;
+}
+
+.transactionItem {
+  padding: 1rem; /* p-4 */
+  background-color: #f9fafb; /* bg-gray-50 */
+  border: 1px solid #edf2f7; /* border-gray-200 */
+  border-radius: 0.5rem; /* rounded-lg */
+  display: flex;
+  justify-content: space-between; /* justify-between */
+  align-items: center; /* items-center */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-sm */
+  transition: all 0.2s ease-in-out;
+}
+
+.transactionItem:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* hover:shadow-md */
+}
+
+.transactionText {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 500; /* font-medium */
+  color: #2d3748; /* text-gray-800 */
+}
+
+.buttonContainerInline {
+  display: flex;
+  gap: 0.5rem; /* space-x-2 */
+}
+
+.editButton {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #f59e0b; /* bg-yellow-500 */
+  color: white;
+  border-radius: 0.5rem; /* rounded-lg */
+}
+
+.editButton:hover {
+  background-color: #d97706; /* bg-yellow-600 */
+}
+
+.deleteButton {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #e53e3e; /* bg-red-500 */
+  color: white;
+  border-radius: 0.5rem; /* rounded-lg */
+}
+
+.deleteButton:hover {
+  background-color: #c53030; /* bg-red-600 */
+}
+
+.chartSection {
+  margin-top: 2.5rem; /* mt-10 */
+}
+
+.chartTitle {
+  font-size: 1.25rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  color: #2d3748; /* text-gray-800 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.insightsSection {
+  margin-top: 2.5rem; /* mt-10 */
+}
+
+.insightItem {
+  padding: 1rem; /* p-4 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-sm */
+  transition: all 0.2s ease-in-out;
+}
+
+.insightItem:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* hover:shadow-md */
+}
+
+.insightDanger {
+  background-color: #feb2b2; /* bg-red-100 */
+  color: #c53030; /* text-red-700 */
+}
+
+.insightWarning {
+  background-color: #fefcbf; /* bg-yellow-100 */
+  color: #d69e2e; /* text-yellow-700 */
+}
